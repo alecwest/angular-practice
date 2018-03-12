@@ -25,14 +25,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'protected',
-    component: ProtectedComponent,
-    canActivate: [ LoggedInGuard ]
+    component: ProtectedComponent
+    // canActivate: [ LoggedInGuard ]
   },
 
   {
     path: 'products',
-    component: ProductsComponent,
-    children: childRoutes
+    component: ProductsComponent
+    // children: childRoutes
   }
 ];
 
@@ -50,13 +50,13 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes),
-    ProductsModule
+    RouterModule.forRoot(routes)
+    // ProductsModule
   ],
   providers: [
     // { provide: LocationStrategy, useClass: HashLocationStrategy },
-    AUTH_PROVIDERS,
-    LoggedInGuard
+    // AUTH_PROVIDERS,
+    // LoggedInGuard
   ],
   bootstrap: [AppComponent]
 })
