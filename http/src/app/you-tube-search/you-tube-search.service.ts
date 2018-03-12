@@ -4,6 +4,8 @@ import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { SearchResult } from './search-result.model';
 
+import 'rxjs/add/operator/map';
+
 export const YOUTUBE_API_KEY =
   'AIzaSyDa59EHGgi7NrFGB-p3DgHtkdeFo01zMtY';
 export const YOUTUBE_API_URL =
