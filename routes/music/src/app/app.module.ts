@@ -16,13 +16,17 @@ import {
 import { AppComponent } from './app.component';
 import { ArtistComponent } from './artist/artist.component';
 import { AlbumComponent } from './album/album.component';
+import { SearchComponent } from './search/search.component';
+import { TrackComponent } from './track/track.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ArtistComponent,
-    AlbumComponent
+    AlbumComponent,
+    SearchComponent,
+    TrackComponent
   ],
   imports: [
     BrowserModule
