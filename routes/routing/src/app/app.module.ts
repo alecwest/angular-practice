@@ -7,6 +7,11 @@ import {
   Routes
 } from '@angular/router';
 
+import {
+  routes as childRoutes,
+  ProductsModule
+} from './products/products.module';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -34,7 +39,7 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent
-    // children: childRoutes
+    children: childRoutes
   }
 ];
 
