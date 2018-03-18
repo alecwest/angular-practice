@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { 
-  RouterModule, 
+import {
+  RouterModule,
   Routes
 } from '@angular/router';
 
@@ -14,6 +14,8 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { ProtectedComponent } from './protected/protected.component';
 import { ProductsComponent } from './products/products.component';
+import { AUTH_PROVIDERS } from './auth.service';
+import { LoggedInGuard } from './logged-in-guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,8 +27,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'protected',
-    component: ProtectedComponent
-    // canActivate: [ LoggedInGuard ]
+    component: ProtectedComponent,
+    canActivate: [ LoggedInGuard ]
   },
 
   {
@@ -55,8 +57,8 @@ const routes: Routes = [
   ],
   providers: [
     // { provide: LocationStrategy, useClass: HashLocationStrategy },
-    // AUTH_PROVIDERS,
-    // LoggedInGuard
+    AUTH_PROVIDERS,
+    LoggedInGuard
   ],
   bootstrap: [AppComponent]
 })
