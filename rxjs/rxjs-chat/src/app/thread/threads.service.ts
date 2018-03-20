@@ -3,13 +3,14 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Thread } from './thread.model';
 import { Message } from '../message/message.model';
 import { MessagesService } from '../message/messages.service';
+import * as _ from 'lodash';
 
 @Injectable()
 export class ThreadsService {
   threads: Observable<{ [key: string]: Thread }>;
-  orderedThreads: Subject<Thread[]> = new Subject<Thread[]>();
-  currentThread: Subject<Thread> = new Subject<Thread>();
-  currentThreadMessages: Subject<Message[]> = new Subject<Message[]>();
+  orderedThreads: Observable<Thread>;
+  currentThread: Subject<Thread> = new BehaviorSubject<Thread>(new Thread());
+  currentThreadMessages: Observable<Message[]>;
 
   constructor(public messagesService: MessagesService) {
     this.threads = messagesService.messages
@@ -26,6 +27,32 @@ export class ThreadsService {
           return threads;
       });
 
+    this.orderedThreads = this.threads
+      .map((threadGroups: { [key: string]: Thread }) => {
+        const threads: Thread[] = _.values(threadGroups);
+        return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reserve();
+      });
+
+    this.currentThreadMessages = this.currentThread
+      .combineLatest(messagesService.messages, (currentThread: Thread, messages: Message[]) => {
+        if (currentThread && messages.length > 0) {
+          return _.chain(messages)
+            .filter((message: Message) =>
+                    (message.thread.id === currentThread.id))
+            .map((message: Message) => {
+              message.isRead = true;
+              return message;
+            }).value();
+        } else {
+          return [];
+        }
+      });
+
+    this.currentThread.subscribe(this.messagesService.markThreadAsRead);
+  }
+
+  setCurrentThread(newThread: Thread): void {
+    this.currentThread.next(newThread);
   }
 
 }
