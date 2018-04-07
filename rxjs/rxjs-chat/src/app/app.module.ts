@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { ChatThreadsComponent } from './chat-threads/chat-threads.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChatThreadsComponent
   ],
   imports: [
     BrowserModule
