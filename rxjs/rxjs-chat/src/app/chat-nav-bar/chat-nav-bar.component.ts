@@ -6,7 +6,7 @@ import { Thread } from '../thread/thread.model';
 import { Message } from '../message/message.model';
 
 @Component({
-  selector: 'app-chat-nav-bar',
+  selector: 'chat-nav-bar',
   templateUrl: './chat-nav-bar.component.html',
   styleUrls: ['./chat-nav-bar.component.css']
 })
@@ -32,7 +32,6 @@ export class ChatNavBarComponent implements OnInit {
         },
         0);
       });
-    )
   }
 
 }

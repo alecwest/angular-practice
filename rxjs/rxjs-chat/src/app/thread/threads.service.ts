@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class ThreadsService {
   threads: Observable<{ [key: string]: Thread }>;
-  orderedThreads: Observable<Thread>;
+  orderedThreads: Observable<Thread[]>;
   currentThread: Subject<Thread> = new BehaviorSubject<Thread>(new Thread());
   currentThreadMessages: Observable<Message[]>;
 
@@ -30,7 +30,7 @@ export class ThreadsService {
     this.orderedThreads = this.threads
       .map((threadGroups: { [key: string]: Thread }) => {
         const threads: Thread[] = _.values(threadGroups);
-        return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reserve();
+        return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reverse();
       });
 
     this.currentThreadMessages = this.currentThread
